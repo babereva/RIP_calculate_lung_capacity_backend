@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Категории пациентов</title>
+    <link rel="stylesheet" href="/static/styles/lung_capacity_common_style.css">
+    <link rel="stylesheet" href="/static/styles/patient_categories_style.css">
+</head>
+<body>
+<main>
+<div class="catalog">
+    <h1 class="catalog-title">КАТЕГОРИИ ПАЦИЕНТОВ</h1>
+
+    <form class="search-form" action="/patient-categories" method="GET">
+        <input class="age-input" type="number" name="patientAge"
+               min="0" max="120" placeholder="Возраст пациента, лет"
+               value="{{ .patientAge }}">
+        <button class="find-button" type="submit">Найти</button>
+    </form>
+
+    <div class="cards">
+        {{ range .patientCategoryCards }}
+        <a class="card" href="/lung-capacity-feed/{{ .Category.ID }}">
+            <img class="card-image"
+                 src="{{ $.minioBaseUrl }}/{{ .Category.PreviewImageKey }}"
+                 alt="{{ .Category.CategoryTitle }}">
+            <h2 class="card-name">{{ .Category.CategoryTitle }}</h2>
+            <p class="card-param">Пол {{ .Category.Sex }}</p>
+            <p class="card-param">Возраст {{ .Category.AgeFrom }}-{{ .Category.AgeTo }} лет</p>
+            <p class="card-param">Рост {{ .Category.HeightFromCm }}-{{ .Category.HeightToCm }} см</p>
+            <span class="card-likes">
+                <img class="card-like-icon" src="/static/img/icon_like_blue.svg" alt="">
+                {{ .LikesCount }}
+            </span>
+        </a>
+        {{ end }}
+    </div>
+</div>
+
+{{ template "tab_bar" . }}
+</main>
+</body>
+</html>

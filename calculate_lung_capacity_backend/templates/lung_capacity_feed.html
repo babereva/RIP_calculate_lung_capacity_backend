@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Лента категорий пациентов</title>
+    <link rel="stylesheet" href="/static/styles/lung_capacity_common_style.css">
+    <link rel="stylesheet" href="/static/styles/lung_capacity_feed_style.css">
+</head>
+<body>
+<main class="feed">
+    <div class="feed-screen">
+        <video class="feed-video"
+               src="{{ .minioBaseUrl }}/{{ .patientCategory.LungCapacityVideoKey }}"
+               poster="{{ .minioBaseUrl }}/{{ .patientCategory.PreviewImageKey }}"
+               autoplay muted loop playsinline></video>
+
+        <div class="feed-buttons">
+            <input class="like-check" type="checkbox" id="like-{{ .patientCategory.ID }}">
+            <label class="likes" for="like-{{ .patientCategory.ID }}">
+                <img class="like-icon like-white" src="/static/img/icon_like_white.svg" alt="">
+                <img class="like-icon like-red" src="/static/img/icon_like_red.svg" alt="">
+                {{ .likesCount }}
+            </label>
+            <a class="next-button"
+               href="/lung-capacity-feed/{{ .patientCategory.ID }}?next=true"
+               title="Следующая категория">
+                <img class="next-arrow arrow-blue" src="/static/img/icon_arrow_blue.png" alt="">
+                <img class="next-arrow arrow-white" src="/static/img/icon_arrow_white.png" alt="">
+            </a>
+        </div>
+
+        <div class="feed-info">
+            <h1 class="feed-name">{{ .patientCategory.CategoryTitle }}</h1>
+            <p class="feed-params">
+                Пол {{ .patientCategory.Sex }},
+                Возраст {{ .patientCategory.AgeFrom }}–{{ .patientCategory.AgeTo }} лет,
+                рост {{ .patientCategory.HeightFromCm }}–{{ .patientCategory.HeightToCm }} см
+            </p>
+
+            <span class="description-title">Описание:</span>
+            <details class="description">
+                <summary class="description-head">
+                    <span class="short-description">{{ .patientCategory.CategoryDescription }}</span>
+                    <span class="more-link">Показать больше &#9662;</span>
+                    <span class="less-link">Скрыть &#9652;</span>
+                </summary>
+                <p class="full-description">{{ .patientCategory.CategoryDescription }}</p>
+            </details>
+        </div>
+    </div>
+
+    {{ template "tab_bar" . }}
+</main>
+</body>
+</html>

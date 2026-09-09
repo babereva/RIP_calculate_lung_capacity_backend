@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Новая категория пациентов</title>
+    <link rel="stylesheet" href="/static/styles/lung_capacity_common_style.css">
+    <link rel="stylesheet" href="/static/styles/patient_category_draft_style.css">
+</head>
+<body>
+<main>
+<div class="draft">
+    <h1 class="draft-title">НОВАЯ КАТЕГОРИЯ ПАЦИЕНТОВ</h1>
+    <p class="status">Статус:
+        <span class="status-value">{{ .patientCategory.CategoryStatus }}</span>
+    </p>
+
+    <form class="draft-form">
+        <label class="big-label">Название</label>
+        <input class="field" type="text" name="categoryTitle"
+               value="{{ .patientCategory.CategoryTitle }}">
+
+        <label class="big-label">Описание</label>
+        <textarea class="text-field" name="categoryDescription">{{ .patientCategory.CategoryDescription }}</textarea>
+
+        <label class="small-label">Пол</label>
+        <select class="select-field" name="sex">
+            <option value="мужской" {{ if eq .patientCategory.Sex "мужской" }}selected{{ end }}>Мужской</option>
+            <option value="женский" {{ if eq .patientCategory.Sex "женский" }}selected{{ end }}>Женский</option>
+        </select>
+
+        <div class="fields-row">
+            <div class="field-cell">
+                <label class="small-label">Возраст от, лет</label>
+                <input class="field" type="number" name="ageFrom"
+                       value="{{ .patientCategory.AgeFrom }}">
+            </div>
+            <div class="field-cell">
+                <label class="small-label">Возраст до, лет</label>
+                <input class="field" type="number" name="ageTo"
+                       value="{{ .patientCategory.AgeTo }}">
+            </div>
+        </div>
+
+        <div class="fields-row">
+            <div class="field-cell">
+                <label class="small-label">Рост от, см</label>
+                <input class="field" type="number" name="heightFromCm"
+                       value="{{ .patientCategory.HeightFromCm }}">
+            </div>
+            <div class="field-cell">
+                <label class="small-label">Рост до, см</label>
+                <input class="field" type="number" name="heightToCm"
+                       value="{{ .patientCategory.HeightToCm }}">
+            </div>
+        </div>
+
+        <div class="fields-row">
+            <div class="field-cell">
+                <label class="small-label">Коэффициент A</label>
+                <input class="field" type="number" step="0.0001" name="coefficientA"
+                       value="{{ .patientCategory.CoefficientA }}">
+            </div>
+            <div class="field-cell">
+                <label class="small-label">Коэффициент B</label>
+                <input class="field" type="number" step="0.0001" name="coefficientB"
+                       value="{{ .patientCategory.CoefficientB }}">
+            </div>
+            <div class="field-cell">
+                <label class="small-label">Коэффициент C</label>
+                <input class="field" type="number" step="0.0001" name="coefficientC"
+                       value="{{ .patientCategory.CoefficientC }}">
+            </div>
+        </div>
+
+        <label class="big-label">Изображение</label>
+        <img class="media-block"
+             src="{{ .minioBaseUrl }}/{{ .patientCategory.PreviewImageKey }}"
+             alt="{{ .patientCategory.CategoryTitle }}">
+
+        <label class="big-label">Видео</label>
+        <video class="media-block"
+               src="{{ .minioBaseUrl }}/{{ .patientCategory.LungCapacityVideoKey }}"
+               poster="{{ .minioBaseUrl }}/{{ .patientCategory.PreviewImageKey }}"
+               controls muted></video>
+
+        <button class="save-button" type="button">Сохранить</button>
+    </form>
+</div>
+
+{{ template "tab_bar" . }}
+</main>
+</body>
+</html>
