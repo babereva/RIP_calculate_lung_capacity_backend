@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Категории пациентов</title>
+    <link rel="stylesheet" href="/static/styles/patient_category_common_style.css">
+    <link rel="stylesheet" href="/static/styles/patient_categories_style.css">
+</head>
+<body>
+<main>
+<div class="catalog">
+    <h1 class="catalog-title">КАТЕГОРИИ ПАЦИЕНТОВ</h1>
+
+    <form class="search-form" action="/patient-categories" method="GET">
+        <span class="search-caption">
+            Возраст от {{ .ageMin }} до {{ .ageMax }} лет
+        </span>
+
+        <div class="age-range">
+            <div class="range-column">
+                <div class="range-track">
+                    <span class="range-line"></span>
+                    <input class="range-input" type="range" name="ageMin"
+                           min="{{ .ageScaleMin }}" max="{{ .ageScaleMax }}"
+                           value="{{ .ageMin }}">
+                    <input class="range-input" type="range" name="ageMax"
+                           min="{{ .ageScaleMin }}" max="{{ .ageScaleMax }}"
+                           value="{{ .ageMax }}">
+                </div>
+                <div class="range-ends">
+                    <span class="range-edge">{{ .ageScaleMin }}</span>
+                    <span class="range-edge">{{ .ageScaleMax }}</span>
+                </div>
+            </div>
+            <button class="find-button" type="submit">Найти</button>
+        </div>
+    </form>
+
+    <div class="cards">
+        {{ range .patientCategoryCards }}
+        <div class="card">
+            <a class="card-link" href="/patient-category-feed/{{ .Category.ID }}">
+                <img class="card-image" src="{{ .ImageURL }}" alt="{{ .Category.Title }}">
+                <h2 class="card-name">{{ .Category.Title }}</h2>
+                <p class="card-param">Возраст {{ .Category.Age }} лет</p>
+                <p class="card-param">Рост {{ .Category.HeightCm }} см</p>
+                <span class="card-likes">
+                    <img class="card-like-icon" src="/static/img/icon_like_blue.svg" alt="">
+                    {{ .LikesCount }}
+                </span>
+            </a>
+
+            <form class="delete-form" action="/patient-category-delete" method="POST">
+                <input type="hidden" name="id" value="{{ .Category.ID }}">
+                <button class="delete-button" type="submit">Удалить</button>
+            </form>
+        </div>
+        {{ end }}
+    </div>
+</div>
+
+{{ template "tab_bar" . }}
+</main>
+</body>
+</html>

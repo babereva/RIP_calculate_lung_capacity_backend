@@ -1,0 +1,73 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', Arial, sans-serif;
+}
+
+body {
+    background: #DFDFDF;
+    color: #1B365D;
+}
+
+/* портретный режим страница ровно в высоту экрана шириной с телефон по центру */
+main {
+    display: flex;
+    flex-direction: column;
+    max-width: 430px;
+    height: 100vh;
+    margin-left: auto;
+    margin-right: auto;
+    background: #FFFFFF;
+}
+
+/* нижнее меню последний элемент колонки поэтому всегда внизу */
+.menu {
+    flex-shrink: 0;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 64px;
+    background: #1B365D;
+}
+
+.menu-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    color: #FFFFFF;
+    text-decoration: none;
+    font-size: 13px;
+}
+
+.menu-icon {
+    width: 24px;
+    height: 24px;
+}
+
+.menu-link:hover {
+    color: #00B0F0;
+}
+
+.menu-active {
+    color: #00B0F0;
+    font-weight: 700;
+}
+
+/* кнопка */
+.find-button {
+    background: #FFFFFF;
+    color: #1B365D;
+    border: 1px solid #00B0F0;
+    border-radius: 3px;
+    padding: 6px 16px;
+    font-size: 12px;
+}
+
+.find-button:hover {
+    background: #00B0F0;
+    color: #FFFFFF;
+}
