@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Новая категория пациентов</title>
+    <link rel="stylesheet" href="/static/styles/patient_category_common_style.css">
+    <link rel="stylesheet" href="/static/styles/patient_category_draft_style.css">
+</head>
+<body>
+<main>
+<div class="draft">
+    <h1 class="draft-title">НОВАЯ КАТЕГОРИЯ ПАЦИЕНТОВ</h1>
+
+    {{ if .hasDraft }}
+
+    <form class="draft-form" action="/patient-category-publish" method="POST">
+        <input type="hidden" name="id" value="{{ .card.Category.PatientCategoryID }}">
+
+        <span class="label">Видео</span>
+        <video class="media-block video-block"
+               src="{{ .videoURL }}"
+               poster="{{ .imageURL }}"
+               autoplay muted loop playsinline></video>
+
+        <span class="label">Изображение</span>
+        <img class="media-block image-block" src="{{ .imageURL }}" alt="{{ .card.Category.PatientCategoryTitle }}">
+
+        <span class="label">Название</span>
+        <input class="field" type="text" value="{{ .card.Category.PatientCategoryTitle }}" readonly>
+
+        <span class="label">Краткое описание</span>
+        <textarea class="text-field" name="description">{{ .card.Category.PatientCategoryDescription }}</textarea>
+
+        <div class="fields-row">
+            <div class="field-cell">
+                <span class="label">Возраст, лет</span>
+                <input class="field" type="number" name="age"
+                       min="0" max="120"
+                       value="{{ .card.Category.PatientCategoryAge }}">
+            </div>
+            <div class="field-cell">
+                <span class="label">Рост, см</span>
+                <input class="field" type="number" name="height"
+                       min="0" max="250"
+                       value="{{ .card.Category.PatientCategoryHeight }}">
+            </div>
+        </div>
+
+        <button class="publish-button" type="submit">Опубликовать</button>
+    </form>
+
+    {{ else }}
+
+    <p class="status">Черновика пока нет, заполните название и нажмите Далее</p>
+
+    <form class="draft-form" action="/patient-category-draft" method="POST">
+        <span class="label">Видео</span>
+        <input class="file-input" type="file" id="video-file" accept="video/*">
+        <video class="media-block video-block"
+               src="{{ .videoURL }}"
+               poster="{{ .imageURL }}"
+               autoplay muted loop playsinline></video>
+        <label class="file-button" for="video-file">Загрузить видео</label>
+
+        <span class="label">Изображение</span>
+        <input class="file-input" type="file" id="image-file" accept="image/*">
+        <img class="media-block image-block" src="{{ .imageURL }}" alt="">
+        <label class="file-button" for="image-file">Загрузить изображение</label>
+
+        <span class="label">Название</span>
+        <input class="field" type="text" name="title" placeholder="Расчет ДЖЕЛ для ...">
+
+        <input type="hidden" name="imageURL" value="">
+        <input type="hidden" name="videoURL" value="">
+
+        <button class="publish-button" type="submit">Далее</button>
+    </form>
+
+    {{ end }}
+</div>
+
+{{ template "tab_bar" . }}
+</main>
+</body>
+</html>

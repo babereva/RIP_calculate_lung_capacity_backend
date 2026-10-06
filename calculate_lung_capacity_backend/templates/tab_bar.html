@@ -1,0 +1,25 @@
+{{ define "tab_bar" }}
+<nav class="menu">
+    <a class="menu-link {{ if eq .activeTab "feed" }}menu-active{{ end }}"
+       href="/patient-category-feed">
+        <img class="menu-icon"
+             src="/static/img/icon_home_{{ if eq .activeTab "feed" }}blue{{ else }}white{{ end }}.png"
+             alt="">
+        <span class="menu-text">Лента</span>
+    </a>
+    <a class="menu-link {{ if eq .activeTab "draft" }}menu-active{{ end }}"
+       href="/patient-category-draft">
+        <img class="menu-icon"
+             src="/static/img/icon_plus_{{ if eq .activeTab "draft" }}blue{{ else }}white{{ end }}.png"
+             alt="">
+        <span class="menu-text">Добавление</span>
+    </a>
+    <a class="menu-link {{ if eq .activeTab "grid" }}menu-active{{ end }}"
+       href="/patient-categories">
+        <img class="menu-icon"
+             src="/static/img/icon_dashboard_{{ if eq .activeTab "grid" }}blue{{ else }}white{{ end }}.png"
+             alt="">
+        <span class="menu-text">Плитка</span>
+    </a>
+</nav>
+{{ end }}

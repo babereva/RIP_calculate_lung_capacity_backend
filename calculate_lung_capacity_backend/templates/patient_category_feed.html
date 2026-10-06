@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Лента категорий пациентов</title>
+    <link rel="stylesheet" href="/static/styles/patient_category_common_style.css">
+    <link rel="stylesheet" href="/static/styles/patient_category_feed_style.css">
+</head>
+<body>
+<main class="feed">
+    <div class="feed-screen">
+        <video class="feed-video"
+               src="{{ .card.VideoURL }}"
+               poster="{{ .card.ImageURL }}"
+               autoplay loop playsinline></video>
+
+        <div class="feed-buttons">
+            <span class="likes">
+                <img class="like-icon" src="/static/img/icon_like_white.svg" alt="">
+                {{ .card.LikesCount }}
+            </span>
+
+            <span class="stat">
+                <span class="stat-name">Возраст</span>
+                <span class="stat-value">{{ .card.Category.PatientCategoryAge }}</span>
+            </span>
+
+            <span class="stat">
+                <span class="stat-name">Рост</span>
+                <span class="stat-value">{{ .card.Category.PatientCategoryHeight }}</span>
+            </span>
+
+            <a class="next-button"
+               href="/patient-category-feed/{{ .card.Category.PatientCategoryID }}?next=true"
+               title="Следующая категория">
+                <img class="next-arrow arrow-blue" src="/static/img/icon_arrow_blue.png" alt="">
+                <img class="next-arrow arrow-white" src="/static/img/icon_arrow_white.png" alt="">
+            </a>
+        </div>
+
+        <div class="feed-info">
+            <h1 class="feed-name">{{ .card.Category.PatientCategoryTitle }}</h1>
+            <span class="description-title">Описание:</span>
+            <details class="description">
+                <summary class="description-head">
+                    <span class="short-description">{{ .card.Category.PatientCategoryDescription }}</span>
+                    <span class="more-link">Показать больше &#9662;</span>
+                    <span class="less-link">Скрыть &#9652;</span>
+                </summary>
+                <p class="full-description">{{ .card.Category.PatientCategoryDescription }}</p>
+            </details>
+        </div>
+    </div>
+
+    {{ template "tab_bar" . }}
+</main>
+</body>
+</html>

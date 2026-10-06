@@ -1,0 +1,38 @@
+services:
+  minio:
+    container_name: minio_storage
+    image: minio/minio:latest
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    environment:
+      MINIO_ROOT_USER: root
+      MINIO_ROOT_PASSWORD: rootpassword
+      MINIO_CONSOLE_ADDRESS: ":9001"
+    volumes:
+      - minio-data:/data
+    command: server /data --console-address ":9001"
+
+  postgres:
+    container_name: patient_category_db
+    image: postgres:17
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres1234
+      POSTGRES_DB: patient_category_db
+    ports:
+      - "5460:5432"
+    volumes:
+      - patient-category-postgres-data:/var/lib/postgresql/data
+
+  adminer:
+    container_name: patient_category_adminer
+    image: adminer:latest
+    ports:
+      - "8085:8080"
+    depends_on:
+      - postgres
+
+volumes:
+  minio-data:
+  patient-category-postgres-data:
