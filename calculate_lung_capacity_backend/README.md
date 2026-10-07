@@ -9,7 +9,6 @@
 | --- | --- | --- |
 | GET | `/api/patient-categories?ageMin=20&ageMax=60` | Список опубликованных категорий с фильтрацией по возрасту |
 | GET | `/api/patient-categories/feed` | Лента, первая опубликованная категория |
-| GET | `/api/patient-categories/feed/:id?next=true` | Лента по идентификатору, с `next=true` следующая запись |
 | GET | `/api/patient-categories/draft` | Черновик текущего пользователя |
 | POST | `/api/patient-categories` | Создание черновика и загрузка фото и видео |
 | PUT | `/api/patient-categories/:id/publish` | Заполнение полей и публикация черновика |
